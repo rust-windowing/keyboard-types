@@ -198,6 +198,12 @@ impl FromStr for Key {
     }
 }
 
+impl From<NamedKey> for Key {
+    fn from(value: NamedKey) -> Self {
+        Self::Named(value)
+    }
+}
+
 impl Key {
     /// Determine a *charCode* value for a key with a character value.
     ///
