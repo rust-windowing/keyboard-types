@@ -15,6 +15,9 @@ use std::error::Error;
 ///
 /// Specification:
 /// <https://w3c.github.io/uievents-key/>
+///
+/// Note: "Space" is deliberately not a named key (to match the specification), use
+/// `Key::Character(" ")` instead.
 #[derive(Copy, Clone, Debug, Eq, PartialEq, Hash, PartialOrd, Ord)]
 #[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 #[non_exhaustive]
