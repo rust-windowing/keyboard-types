@@ -1,8 +1,8 @@
 Keyboard Types
 ==============
 
-[![Build Status](https://github.com/pyfisch/keyboard-types/actions/workflows/ci.yml/badge.svg)](https://github.com/pyfisch/keyboard-types/actions/workflows/ci.yml)
-[![Crates.io](https://img.shields.io/crates/v/keyboard-types.svg)](https://crates.io/crates/keyboard-types)
+[![Build Status](https://github.com/rust-windowing/keyboard-types/actions/workflows/ci.yml/badge.svg)](https://github.com/rust-windowing/keyboard-types/actions)
+[![crates.io](https://img.shields.io/crates/v/keyboard-types.svg)](https://crates.io/crates/keyboard-types)
 [![Documentation](https://docs.rs/keyboard-types/badge.svg)](https://docs.rs/keyboard-types)
 
 Contains types to define keyboard related events.
