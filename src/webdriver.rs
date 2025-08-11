@@ -188,6 +188,7 @@ fn code(raw_key: char) -> Code {
         '\u{E009}' => Code::ControlLeft,
         '\u{E051}' => Code::ControlRight,
         '\u{E006}' => Code::Enter,
+        '\u{E00B}' => Code::Pause,
         // FIXME: spec says "OSLeft"
         '\u{E03D}' => Code::MetaLeft,
         // FIXME: spec says "OSRight"
@@ -222,6 +223,7 @@ fn code(raw_key: char) -> Code {
         '\u{E03A}' => Code::F10,
         '\u{E03B}' => Code::F11,
         '\u{E03C}' => Code::F12,
+        '\u{E019}' => Code::NumpadEqual,
         '\u{E01A}' | '\u{E05C}' => Code::Numpad0,
         '\u{E01B}' | '\u{E056}' => Code::Numpad1,
         '\u{E01C}' | '\u{E05B}' => Code::Numpad2,
@@ -290,6 +292,7 @@ fn key_location(raw_key: char) -> Location {
         '\u{E03D}' => Location::Left,
         '\u{E050}'..='\u{E053}' => Location::Right,
         '\u{E054}'..='\u{E05D}' => Location::Numpad,
+        '\u{E019}' => Location::Numpad,
         _ => Location::Standard,
     }
 }
