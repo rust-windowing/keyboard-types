@@ -20,6 +20,6 @@ pub struct KeyboardEvent {
     /// True if the key is currently auto-repeated.
     pub repeat: bool,
     /// Events with this flag should be ignored in a text editor
-    /// and instead [composition events](CompositionEvent) should be used.
+    /// and instead [composition events](crate::CompositionEvent) should be used.
     pub is_composing: bool,
 }
