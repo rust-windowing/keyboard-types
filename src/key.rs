@@ -2,14 +2,14 @@ use alloc::string::{String, ToString};
 use core::fmt;
 use core::str::FromStr;
 
-use crate::NamedKey;
+use crate::{first_char, NamedKey};
 
 #[cfg(feature = "serde")]
 use serde::{Deserialize, Serialize};
 
 /// The value received from the keypress.
 #[derive(Clone, Debug, Eq, Hash, PartialEq, PartialOrd, Ord)]
-#[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
+#[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
 pub enum Key {
     /// A key string that corresponds to the character typed by the user,
     /// taking into account the user’s current locale setting, modifier state,
@@ -120,14 +120,6 @@ impl Default for Key {
     fn default() -> Self {
         Self::Named(NamedKey::default())
     }
-}
-
-/// Return the first codepoint of a string.
-///
-/// # Panics
-/// Panics if the string is empty.
-fn first_char(s: &str) -> char {
-    s.chars().next().expect("empty string")
 }
 
 /// Check if string can be used as a `Key::Character` _keystring_.
