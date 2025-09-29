@@ -91,3 +91,9 @@ pub enum Location {
     )]
     Numpad = 0x03,
 }
+
+impl Default for Location {
+    fn default() -> Location {
+        Location::Standard
+    }
+}
