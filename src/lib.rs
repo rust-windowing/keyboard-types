@@ -34,14 +34,6 @@ mod shortcuts;
 #[cfg(feature = "webdriver")]
 pub mod webdriver;
 
-/// Return the first codepoint of a string.
-///
-/// # Panics
-/// Panics if the string is empty.
-fn first_char(s: &str) -> char {
-    s.chars().next().expect("empty string")
-}
-
 impl Default for NamedKey {
     fn default() -> Self {
         Self::Unidentified
@@ -52,4 +44,12 @@ impl Default for Code {
     fn default() -> Code {
         Code::Unidentified
     }
+}
+
+/// Return the first codepoint of a string.
+///
+/// # Panics
+/// Panics if the string is empty.
+fn first_char(s: &str) -> char {
+    s.chars().next().expect("empty string")
 }
