@@ -23,3 +23,27 @@ pub struct KeyboardEvent {
     /// and instead [composition events](crate::CompositionEvent) should be used.
     pub is_composing: bool,
 }
+
+impl KeyboardEvent {
+    /// Convenience constructor which takes `key` and `code`, sets `state` to
+    /// [`KeyState::Down`], and sets everything else to default values.
+    pub fn key_down(key: impl Into<Key>, code: Code) -> Self {
+        KeyboardEvent {
+            state: KeyState::Down,
+            key: key.into(),
+            code,
+            ..Default::default()
+        }
+    }
+
+    /// Convenience constructor which takes `key` and `code`, sets `state` to
+    /// [`KeyState::Up`], and sets everything else to default values.
+    pub fn key_up(key: impl Into<Key>, code: Code) -> Self {
+        KeyboardEvent {
+            state: KeyState::Up,
+            key: key.into(),
+            code,
+            ..Default::default()
+        }
+    }
+}
