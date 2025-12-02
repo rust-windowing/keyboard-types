@@ -381,7 +381,11 @@ impl KeyInputState {
         let mut actions: Vec<_> = undo_actions.drain().collect();
         actions.sort_unstable();
         for action in actions {
-            result.push(self.dispatch_keyup(action).unwrap().into());
+            // When we `dispatch_typeable`, we may have already dispatched keyup
+            // but did not update `undo_actions`.
+            if let Some(event) = self.dispatch_keyup(action) {
+                result.push(event.into());
+            }
         }
         assert!(undo_actions.is_empty());
     }
