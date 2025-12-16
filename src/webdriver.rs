@@ -514,3 +514,29 @@ pub fn send_keys(text: &str) -> Vec<Event> {
     state.clear(&mut undo_actions, &mut result);
     result
 }
+
+#[cfg(test)]
+mod test {
+    use super::*;
+    use std::vec;
+
+    #[test]
+    fn test_send_key_with_shift() {
+        let result: Vec<(KeyState, Key)> = send_keys("\u{e008}y")
+            .iter()
+            .map(|e| match e {
+                Event::Keyboard(key_event) => (key_event.state, key_event.key.clone()),
+                _ => unreachable!("Unexpected event"),
+            })
+            .collect();
+
+        let expected = vec![
+            (KeyState::Down, Key::Named(NamedKey::Shift)),
+            (KeyState::Up, Key::Named(NamedKey::Shift)),
+            (KeyState::Down, Key::Character("y".to_string())),
+            (KeyState::Up, Key::Character("y".to_string())),
+        ];
+
+        assert_eq!(result, expected);
+    }
+}
