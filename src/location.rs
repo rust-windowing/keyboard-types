@@ -5,7 +5,7 @@
 /// number keys can be above the letters or on the numpad. This enum allows differentiating them.
 ///
 /// See also [MDN's documentation](https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/location).
-#[derive(Copy, Clone, Debug, Eq, Hash, PartialEq, PartialOrd, Ord)]
+#[derive(Copy, Clone, Debug, Default, Eq, Hash, PartialEq, PartialOrd, Ord)]
 #[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 pub enum Location {
     /// The key is in its "normal" location on the keyboard.
@@ -31,6 +31,7 @@ pub enum Location {
         env!("CARGO_PKG_VERSION"),
         "/source/docs/ATTRIBUTION.md",
     )]
+    #[default]
     Standard = 0x00,
 
     /// The key activated originated from the left key location (when there
@@ -92,8 +93,20 @@ pub enum Location {
     Numpad = 0x03,
 }
 
-impl Default for Location {
-    fn default() -> Location {
-        Location::Standard
+impl Location {
+    /// Get the [`Location`] of an XKB keysym.
+    pub fn from_xkb_keysym(keysym: u32) -> Location {
+        match keysym {
+            0xFFE1 | 0xFFE3 | 0xFFE7 | 0xFFE9 | 0xFFEB | 0xFFED => Location::Left,
+            0xFFE2 | 0xFFE4 | 0xFFE8 | 0xFFEA | 0xFFEC | 0xFFEE => Location::Right,
+            0xFFB0..=0xFFB9
+            | 0xFF80
+            | 0xFF89
+            | 0xFF8D
+            | 0xFF91..=0xFF9F
+            | 0xFFBD
+            | 0xFFAA..=0xFFAF => Location::Numpad,
+            _ => Location::Standard,
+        }
     }
 }

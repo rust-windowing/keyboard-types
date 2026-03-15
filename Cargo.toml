@@ -8,8 +8,8 @@ license = "MIT OR Apache-2.0"
 repository = "https://github.com/rust-windowing/keyboard-types"
 keywords = ["keyboard", "input", "event", "webdriver"]
 edition = "2021"
-# 1.61 with `std` feature, 1.81 without.
-rust-version = "1.61"
+# 1.71 with `std` feature, 1.81 without.
+rust-version = "1.71"
 
 [features]
 default = ["std"]

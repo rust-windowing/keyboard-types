@@ -2,7 +2,7 @@
 use serde::{Deserialize, Serialize};
 
 /// Describes the state a key is in.
-#[derive(Copy, Clone, Debug, Eq, Hash, PartialEq, PartialOrd, Ord)]
+#[derive(Copy, Clone, Debug, Default, Eq, Hash, PartialEq, PartialOrd, Ord)]
 #[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
 pub enum KeyState {
     /// The key is pressed down.
@@ -11,6 +11,7 @@ pub enum KeyState {
     ///
     /// [keydown]: https://w3c.github.io/uievents/#event-type-keydown
     /// [mdn]: https://developer.mozilla.org/en-US/docs/Web/API/Element/keydown_event
+    #[default]
     Down,
     /// The key is not pressed / was just released.
     ///
@@ -19,12 +20,6 @@ pub enum KeyState {
     /// [keyup]: https://w3c.github.io/uievents/#event-type-keyup
     /// [mdn]: https://developer.mozilla.org/en-US/docs/Web/API/Element/keyup_event
     Up,
-}
-
-impl Default for KeyState {
-    fn default() -> KeyState {
-        KeyState::Down
-    }
 }
 
 impl KeyState {

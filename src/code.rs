@@ -19,7 +19,7 @@ use std::error::Error;
 ///
 /// Specification:
 /// <https://w3c.github.io/uievents-code/>
-#[derive(Copy, Clone, Debug, Eq, PartialEq, Hash, PartialOrd, Ord)]
+#[derive(Copy, Clone, Debug, Default, Eq, PartialEq, Hash, PartialOrd, Ord)]
 #[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
 #[non_exhaustive]
 pub enum Code {
@@ -372,6 +372,7 @@ pub enum Code {
     Katakana,
     /// This value code should be used when no other
     /// value given in this specification is appropriate.
+    #[default]
     Unidentified,
     /// <kbd>F1</kbd>
     F1,
@@ -485,6 +486,487 @@ pub enum Code {
     ShowAllWindows,
     /// Non-standard code value supported by Chromium.
     ZoomToggle,
+}
+
+impl Code {
+    /// Get the [`Code`] for a raw XKB keycode.
+    pub fn from_xkb_kecode(keycode: u32) -> Option<Self> {
+        match keycode {
+            0 => None,
+            1 => Some(Code::Escape),
+            2 => Some(Code::Digit1),
+            3 => Some(Code::Digit2),
+            4 => Some(Code::Digit3),
+            5 => Some(Code::Digit4),
+            6 => Some(Code::Digit5),
+            7 => Some(Code::Digit6),
+            8 => Some(Code::Digit7),
+            9 => Some(Code::Digit8),
+            10 => Some(Code::Digit9),
+            11 => Some(Code::Digit0),
+            12 => Some(Code::Minus),
+            13 => Some(Code::Equal),
+            14 => Some(Code::Backspace),
+            15 => Some(Code::Tab),
+            16 => Some(Code::KeyQ),
+            17 => Some(Code::KeyW),
+            18 => Some(Code::KeyE),
+            19 => Some(Code::KeyR),
+            20 => Some(Code::KeyT),
+            21 => Some(Code::KeyY),
+            22 => Some(Code::KeyU),
+            23 => Some(Code::KeyI),
+            24 => Some(Code::KeyO),
+            25 => Some(Code::KeyP),
+            26 => Some(Code::BracketLeft),
+            27 => Some(Code::BracketRight),
+            28 => Some(Code::Enter),
+            29 => Some(Code::ControlLeft),
+            30 => Some(Code::KeyA),
+            31 => Some(Code::KeyS),
+            32 => Some(Code::KeyD),
+            33 => Some(Code::KeyF),
+            34 => Some(Code::KeyG),
+            35 => Some(Code::KeyH),
+            36 => Some(Code::KeyJ),
+            37 => Some(Code::KeyK),
+            38 => Some(Code::KeyL),
+            39 => Some(Code::Semicolon),
+            40 => Some(Code::Quote),
+            41 => Some(Code::Backquote),
+            42 => Some(Code::ShiftLeft),
+            43 => Some(Code::Backslash),
+            44 => Some(Code::KeyZ),
+            45 => Some(Code::KeyX),
+            46 => Some(Code::KeyC),
+            47 => Some(Code::KeyV),
+            48 => Some(Code::KeyB),
+            49 => Some(Code::KeyN),
+            50 => Some(Code::KeyM),
+            51 => Some(Code::Comma),
+            52 => Some(Code::Period),
+            53 => Some(Code::Slash),
+            54 => Some(Code::ShiftRight),
+            55 => Some(Code::NumpadMultiply),
+            56 => Some(Code::AltLeft),
+            57 => Some(Code::Space),
+            58 => Some(Code::CapsLock),
+            59 => Some(Code::F1),
+            60 => Some(Code::F2),
+            61 => Some(Code::F3),
+            62 => Some(Code::F4),
+            63 => Some(Code::F5),
+            64 => Some(Code::F6),
+            65 => Some(Code::F7),
+            66 => Some(Code::F8),
+            67 => Some(Code::F9),
+            68 => Some(Code::F10),
+            69 => Some(Code::NumLock),
+            70 => Some(Code::ScrollLock),
+            71 => Some(Code::Numpad7),
+            72 => Some(Code::Numpad8),
+            73 => Some(Code::Numpad9),
+            74 => Some(Code::NumpadSubtract),
+            75 => Some(Code::Numpad4),
+            76 => Some(Code::Numpad5),
+            77 => Some(Code::Numpad6),
+            78 => Some(Code::NumpadAdd),
+            79 => Some(Code::Numpad1),
+            80 => Some(Code::Numpad2),
+            81 => Some(Code::Numpad3),
+            82 => Some(Code::Numpad0),
+            83 => Some(Code::NumpadDecimal),
+            85 => Some(Code::Lang5),
+            86 => Some(Code::IntlBackslash),
+            87 => Some(Code::F11),
+            88 => Some(Code::F12),
+            89 => Some(Code::IntlRo),
+            90 => Some(Code::Lang3),
+            91 => Some(Code::Lang4),
+            92 => Some(Code::Convert),
+            93 => Some(Code::KanaMode),
+            94 => Some(Code::NonConvert),
+            95 => None, // KPJPCOMMA
+            96 => Some(Code::NumpadEnter),
+            97 => Some(Code::ControlRight),
+            98 => Some(Code::NumpadDivide),
+            99 => Some(Code::PrintScreen),
+            100 => Some(Code::AltRight),
+            101 => None, // LINEFEED
+            102 => Some(Code::Home),
+            103 => Some(Code::ArrowUp),
+            104 => Some(Code::PageUp),
+            105 => Some(Code::ArrowLeft),
+            106 => Some(Code::ArrowRight),
+            107 => Some(Code::End),
+            108 => Some(Code::ArrowDown),
+            109 => Some(Code::PageDown),
+            110 => Some(Code::Insert),
+            111 => Some(Code::Delete),
+            112 => None, // MACRO
+            113 => Some(Code::AudioVolumeMute),
+            114 => Some(Code::AudioVolumeDown),
+            115 => Some(Code::AudioVolumeUp),
+            116 => Some(Code::Power),
+            117 => Some(Code::NumpadEqual),
+            118 => None, // KPPLUSMINUS
+            119 => Some(Code::Pause),
+            120 => Some(Code::ShowAllWindows),
+            121 => Some(Code::NumpadComma),
+            122 => Some(Code::Lang1),
+            123 => Some(Code::Lang2),
+            124 => Some(Code::IntlYen),
+            125 => Some(Code::MetaLeft),
+            126 => Some(Code::MetaRight),
+            127 => Some(Code::ContextMenu),
+            128 => Some(Code::BrowserStop),
+            129 => Some(Code::Again),
+            130 => Some(Code::Props),
+            131 => Some(Code::Undo),
+            132 => Some(Code::Select), // FRONT
+            133 => Some(Code::Copy),
+            134 => Some(Code::Open),
+            135 => Some(Code::Paste),
+            136 => Some(Code::Find),
+            137 => Some(Code::Cut),
+            138 => Some(Code::Help),
+            139 => None, // MENU
+            140 => Some(Code::LaunchApp2), // CALC
+            141 => None, // SETUP
+            142 => Some(Code::Sleep),
+            143 => Some(Code::WakeUp),
+            144 => Some(Code::LaunchApp1), // FILE
+            145 => None, // SENDFILE
+            146 => None, // DELETEFILE
+            147 => None, // XFER
+            148 => None, // PROG1
+            149 => None, // PROG2
+            150 => None, // WWW
+            151 => None, // MSDOS
+            152 => None, // COFFEE
+            153 => None, // ROTATE_DISPLAY
+            154 => None, // CYCLEWINDOWS
+            155 => Some(Code::LaunchMail),
+            156 => Some(Code::BrowserFavorites), // BOOKMARKS
+            157 => None, // COMPUTER
+            158 => Some(Code::BrowserBack),
+            159 => Some(Code::BrowserForward),
+            160 => None, // CLOSECD
+            161 => Some(Code::Eject), // EJECTCED
+            162 => None, // EJECTCLOSECD
+            163 => Some(Code::MediaTrackNext),
+            164 => Some(Code::MediaPlayPause),
+            165 => Some(Code::MediaTrackPrevious),
+            166 => Some(Code::MediaStop),
+            167 => Some(Code::MediaRecord),
+            168 => Some(Code::MediaRewind),
+            169 => None, // PHONE
+            170 => None, // ISO
+            171 => Some(Code::MediaSelect), // CONFIG
+            172 => Some(Code::BrowserHome),
+            173 => Some(Code::BrowserRefresh),
+            174 => None, // EXIT
+            175 => None, // MOVE
+            176 => None, // EDIT
+            177 => None, // SCROLLUP
+            178 => None, // SCROLLDOWN
+            179 => Some(Code::NumpadParenLeft),
+            180 => Some(Code::NumpadParenRight),
+            181 => None, // NEW
+            182 => None, // REDO
+            183 => Some(Code::F13),
+            184 => Some(Code::F14),
+            185 => Some(Code::F15),
+            186 => Some(Code::F16),
+            187 => Some(Code::F17),
+            188 => Some(Code::F18),
+            189 => Some(Code::F19),
+            190 => Some(Code::F20),
+            191 => Some(Code::F21),
+            192 => Some(Code::F22),
+            193 => Some(Code::F23),
+            194 => Some(Code::F24),
+            200 => None, // PLAYCD
+            201 => Some(Code::MediaPause),
+            202 => None, // PROG3
+            203 => None, // PROG4
+            204 => None, // DASHBOARD
+            205 => Some(Code::Suspend),
+            206 => None, // CLOSE
+            207 => Some(Code::MediaPlay),
+            208 => Some(Code::MediaFastForward),
+            209 => None, // BASSBOOST
+            210 => None, // PRINT
+            211 => None, // HP
+            212 => None, // CAMERA
+            213 => None, // SOUND
+            214 => None, // QUESTION
+            215 => None, // EMAIL
+            216 => None, // CHAT
+            217 => Some(Code::BrowserSearch),
+            218 => None, // CONNECT
+            219 => None, // FINANCE
+            220 => None, // SPORT
+            221 => None, // SHOP
+            222 => None, // ALTERASE
+            223 => None, // CANCEL
+            224 => Some(Code::BrightnessDown),
+            225 => Some(Code::BrightnessUp),
+            226 => None, // MEDIA
+            227 => Some(Code::DisplayToggleIntExt),
+            228 => Some(Code::KeyboardBacklightToggle),
+            229 => None, // KBDILLUMDOWN
+            230 => None, // KBDILLUMUP
+            231 => Some(Code::MailSend),
+            232 => Some(Code::MailReply),
+            233 => Some(Code::MailForward),
+            234 => None, // SAVE
+            235 => None, // DOCUMENTS
+            236 => None, // BATTERY
+            237 => None, // BLUETOOTH
+            238 => None, // WLAN
+            239 => None, // UWB
+            240 => None,
+            241 => None, // VIDEO_NEXT
+            242 => None, // VIDEO_PREV
+            243 => None, // BRIGHTNESS_CYCLE
+            244 => None, // BRIGHTNESS_AUTO
+            245 => None, // DISPLAY_OFF
+            246 => None, // WWAN
+            247 => None, // RFKILL
+            248 => Some(Code::MicrophoneMuteToggle),
+            372 => Some(Code::ZoomToggle),
+            579 => Some(Code::LaunchControlPanel),
+            580 => Some(Code::SelectTask),
+            581 => Some(Code::LaunchScreenSaver),
+            583 => Some(Code::LaunchAssistant),
+            584 => Some(Code::KeyboardLayoutSelect),
+            633 => Some(Code::PrivacyScreenToggle),
+            _ => None,
+        }
+    }
+
+    /// Convert this code to a raw XKB keycode.
+    pub fn to_xkb_kecode(&self) -> Option<u32> {
+        match self {
+            Code::Escape => Some(1),
+            Code::Digit1 => Some(2),
+            Code::Digit2 => Some(3),
+            Code::Digit3 => Some(4),
+            Code::Digit4 => Some(5),
+            Code::Digit5 => Some(6),
+            Code::Digit6 => Some(7),
+            Code::Digit7 => Some(8),
+            Code::Digit8 => Some(9),
+            Code::Digit9 => Some(10),
+            Code::Digit0 => Some(11),
+            Code::Minus => Some(12),
+            Code::Equal => Some(13),
+            Code::Backspace => Some(14),
+            Code::Tab => Some(15),
+            Code::KeyQ => Some(16),
+            Code::KeyW => Some(17),
+            Code::KeyE => Some(18),
+            Code::KeyR => Some(19),
+            Code::KeyT => Some(20),
+            Code::KeyY => Some(21),
+            Code::KeyU => Some(22),
+            Code::KeyI => Some(23),
+            Code::KeyO => Some(24),
+            Code::KeyP => Some(25),
+            Code::BracketLeft => Some(26),
+            Code::BracketRight => Some(27),
+            Code::Enter => Some(28),
+            Code::ControlLeft => Some(29),
+            Code::KeyA => Some(30),
+            Code::KeyS => Some(31),
+            Code::KeyD => Some(32),
+            Code::KeyF => Some(33),
+            Code::KeyG => Some(34),
+            Code::KeyH => Some(35),
+            Code::KeyJ => Some(36),
+            Code::KeyK => Some(37),
+            Code::KeyL => Some(38),
+            Code::Semicolon => Some(39),
+            Code::Quote => Some(40),
+            Code::Backquote => Some(41),
+            Code::ShiftLeft => Some(42),
+            Code::Backslash => Some(43),
+            Code::KeyZ => Some(44),
+            Code::KeyX => Some(45),
+            Code::KeyC => Some(46),
+            Code::KeyV => Some(47),
+            Code::KeyB => Some(48),
+            Code::KeyN => Some(49),
+            Code::KeyM => Some(50),
+            Code::Comma => Some(51),
+            Code::Period => Some(52),
+            Code::Slash => Some(53),
+            Code::ShiftRight => Some(54),
+            Code::NumpadMultiply => Some(55),
+            Code::AltLeft => Some(56),
+            Code::Space => Some(57),
+            Code::CapsLock => Some(58),
+            Code::F1 => Some(59),
+            Code::F2 => Some(60),
+            Code::F3 => Some(61),
+            Code::F4 => Some(62),
+            Code::F5 => Some(63),
+            Code::F6 => Some(64),
+            Code::F7 => Some(65),
+            Code::F8 => Some(66),
+            Code::F9 => Some(67),
+            Code::F10 => Some(68),
+            Code::NumLock => Some(69),
+            Code::ScrollLock => Some(70),
+            Code::Numpad7 => Some(71),
+            Code::Numpad8 => Some(72),
+            Code::Numpad9 => Some(73),
+            Code::NumpadSubtract => Some(74),
+            Code::Numpad4 => Some(75),
+            Code::Numpad5 => Some(76),
+            Code::Numpad6 => Some(77),
+            Code::NumpadAdd => Some(78),
+            Code::Numpad1 => Some(79),
+            Code::Numpad2 => Some(80),
+            Code::Numpad3 => Some(81),
+            Code::Numpad0 => Some(82),
+            Code::NumpadDecimal => Some(83),
+            Code::Lang5 => Some(85),
+            Code::IntlBackslash => Some(86),
+            Code::F11 => Some(87),
+            Code::F12 => Some(88),
+            Code::IntlRo => Some(89),
+            Code::Lang3 => Some(90),
+            Code::Lang4 => Some(91),
+            Code::Convert => Some(92),
+            Code::KanaMode => Some(93),
+            Code::NonConvert => Some(94),
+            Code::NumpadEnter => Some(96),
+            Code::ControlRight => Some(97),
+            Code::NumpadDivide => Some(98),
+            Code::PrintScreen => Some(99),
+            Code::AltRight => Some(100),
+            Code::Home => Some(102),
+            Code::ArrowUp => Some(103),
+            Code::PageUp => Some(104),
+            Code::ArrowLeft => Some(105),
+            Code::ArrowRight => Some(106),
+            Code::End => Some(107),
+            Code::ArrowDown => Some(108),
+            Code::PageDown => Some(109),
+            Code::Insert => Some(110),
+            Code::Delete => Some(111),
+            Code::AudioVolumeMute => Some(113),
+            Code::AudioVolumeDown => Some(114),
+            Code::AudioVolumeUp => Some(115),
+            Code::Power => Some(116),
+            Code::NumpadEqual => Some(117),
+            Code::Pause => Some(119),
+            Code::ShowAllWindows => Some(120),
+            Code::NumpadComma => Some(121),
+            Code::Lang1 => Some(122),
+            Code::Lang2 => Some(123),
+            Code::IntlYen => Some(124),
+            Code::MetaLeft => Some(125),
+            Code::MetaRight => Some(126),
+            Code::ContextMenu => Some(127),
+            Code::BrowserStop => Some(128),
+            Code::Again => Some(129),
+            Code::Props => Some(130),
+            Code::Undo => Some(131),
+            Code::Select => Some(132),
+            Code::Copy => Some(133),
+            Code::Open => Some(134),
+            Code::Paste => Some(135),
+            Code::Find => Some(136),
+            Code::Cut => Some(137),
+            Code::Help => Some(138),
+            Code::LaunchApp2 => Some(140),
+            Code::Sleep => Some(142),
+            Code::WakeUp => Some(143),
+            Code::LaunchApp1 => Some(144),
+            Code::LaunchMail => Some(155),
+            Code::BrowserFavorites => Some(156),
+            Code::BrowserBack => Some(158),
+            Code::BrowserForward => Some(159),
+            Code::Eject => Some(161),
+            Code::MediaTrackNext => Some(163),
+            Code::MediaPlayPause => Some(164),
+            Code::MediaTrackPrevious => Some(165),
+            Code::MediaStop => Some(166),
+            Code::MediaRecord => Some(167),
+            Code::MediaRewind => Some(168),
+            Code::MediaSelect => Some(171),
+            Code::BrowserHome => Some(172),
+            Code::BrowserRefresh => Some(173),
+            Code::NumpadParenLeft => Some(179),
+            Code::NumpadParenRight => Some(180),
+            Code::F13 => Some(183),
+            Code::F14 => Some(184),
+            Code::F15 => Some(185),
+            Code::F16 => Some(186),
+            Code::F17 => Some(187),
+            Code::F18 => Some(188),
+            Code::F19 => Some(189),
+            Code::F20 => Some(190),
+            Code::F21 => Some(191),
+            Code::F22 => Some(192),
+            Code::F23 => Some(193),
+            Code::F24 => Some(194),
+            Code::MediaPause => Some(201),
+            Code::Suspend => Some(205),
+            Code::MediaPlay => Some(207),
+            Code::MediaFastForward => Some(208),
+            Code::BrowserSearch => Some(217),
+            Code::BrightnessDown => Some(224),
+            Code::BrightnessUp => Some(225),
+            Code::DisplayToggleIntExt => Some(227),
+            Code::KeyboardBacklightToggle => Some(228),
+            Code::MailSend => Some(231),
+            Code::MailReply => Some(232),
+            Code::MailForward => Some(233),
+            Code::MicrophoneMuteToggle => Some(248),
+            Code::ZoomToggle => Some(372),
+            Code::LaunchControlPanel => Some(579),
+            Code::SelectTask => Some(580),
+            Code::LaunchScreenSaver => Some(581),
+            Code::LaunchAssistant => Some(583),
+            Code::KeyboardLayoutSelect => Some(584),
+            Code::PrivacyScreenToggle => Some(633),
+            Code::Abort
+            | Code::F25
+            | Code::F26
+            | Code::F27
+            | Code::F28
+            | Code::F29
+            | Code::F30
+            | Code::F31
+            | Code::F32
+            | Code::F33
+            | Code::F34
+            | Code::F35
+            | Code::Fn
+            | Code::FnLock
+            | Code::Hiragana
+            | Code::Hyper
+            | Code::Katakana
+            | Code::NumpadBackspace
+            | Code::NumpadClear
+            | Code::NumpadClearEntry
+            | Code::NumpadHash
+            | Code::NumpadMemoryAdd
+            | Code::NumpadMemoryClear
+            | Code::NumpadMemoryRecall
+            | Code::NumpadMemoryStore
+            | Code::NumpadMemorySubtract
+            | Code::NumpadStar
+            | Code::Resume
+            | Code::Super
+            | Code::Turbo
+            | Code::Unidentified => None,
+        }
+    }
 }
 
 

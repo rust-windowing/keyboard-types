@@ -10,7 +10,7 @@ jobs:
       matrix:
         toolchain:
           - stable
-          - "1.61"
+          - "1.71"
           - "1.81"
     steps:
       - uses: actions/checkout@v4
@@ -21,9 +21,9 @@ jobs:
       - run: cargo check --all-targets --all-features
       - run: cargo test --all-features
       # No default features. Only works on Rust 1.81
-      - if: matrix.toolchain != 1.61
+      - if: matrix.toolchain != 1.71
         run: cargo check --all-targets --no-default-features
-      - if: matrix.toolchain != 1.61
+      - if: matrix.toolchain != 1.71
         run: cargo test --no-default-features
 
   clippy-fmt:

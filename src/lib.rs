@@ -34,18 +34,6 @@ mod shortcuts;
 #[cfg(feature = "webdriver")]
 pub mod webdriver;
 
-impl Default for NamedKey {
-    fn default() -> Self {
-        Self::Unidentified
-    }
-}
-
-impl Default for Code {
-    fn default() -> Code {
-        Code::Unidentified
-    }
-}
-
 /// Return the first codepoint of a string.
 ///
 /// # Panics
