@@ -92,3 +92,21 @@ pub enum Location {
     )]
     Numpad = 0x03,
 }
+
+impl Location {
+    /// Get the [`Location`] of an XKB keysym.
+    pub fn from_xkb_keysym(keysym: u32) -> Location {
+        match keysym {
+            0xFFE1 | 0xFFE3 | 0xFFE7 | 0xFFE9 | 0xFFEB | 0xFFED => Location::Left,
+            0xFFE2 | 0xFFE4 | 0xFFE8 | 0xFFEA | 0xFFEC | 0xFFEE => Location::Right,
+            0xFFB0..=0xFFB9
+            | 0xFF80
+            | 0xFF89
+            | 0xFF8D
+            | 0xFF91..=0xFF9F
+            | 0xFFBD
+            | 0xFFAA..=0xFFAF => Location::Numpad,
+            _ => Location::Standard,
+        }
+    }
+}

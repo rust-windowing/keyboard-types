@@ -675,7 +675,6 @@ pub enum NamedKey {
     F35,
 }
 
-
 impl Display for NamedKey {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         use self::NamedKey::*;
